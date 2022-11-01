@@ -1,7 +1,4 @@
-from email.policy import default
-from pyexpat import model
-from secrets import choice
-from statistics import mode
+from tabnanny import verbose
 from django.db import models
 
 
@@ -17,5 +14,11 @@ class Palestras(models.Model):
     descricao = models.CharField(max_length=400)
     data_criacao = models.DateField()
     status = models.CharField(max_length = 2,
-                                choice=STATUS_CHOICES,
+                                choices=STATUS_CHOICES,
                                 default='Já Vi')
+    
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name_plural = "Palestras"

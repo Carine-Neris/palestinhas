@@ -1,3 +1,6 @@
+import site
 from django.contrib import admin
+from .models import Palestras
 
-# Register your models here.
+
+admin.site.register(Palestras)

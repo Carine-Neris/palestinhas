@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import index
+from .views import palestras_list
 
 
 urlpatterns = [
-    path('getpalestras',index),
+    path('palestras',palestras_list),
 ]

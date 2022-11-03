@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import Palestras
@@ -23,5 +23,11 @@ def palestras(request):
         context = {'context': palestras,
                     'form': form}
         return render(request,'palestras/index.html', context)
+
+
+def palestra_delete(request,pk):
+    palestra =  Palestras.objects.get(pk=pk)
+    palestra.delete()
+    return redirect('palestras')
   
         

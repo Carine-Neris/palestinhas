@@ -12,14 +12,21 @@
             <th>Nome</th>
             <th>Link</th>
             <th>Descrição</th>
+            <th>Deletar</th>
         </tr>
         {% for item in context %}
             <tr>
                 <td>{{item.nome}}</td>
                 <td>{{item.link}}</td>
                 <td>{{item.descricao}}</td>
+                <td><button type="submit">Deletar</button></td>
             </tr>
         {% endfor %}
     </table>
+    <h1>Cadastrar Nova Palestra</h1>
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
 </body>
 </html>

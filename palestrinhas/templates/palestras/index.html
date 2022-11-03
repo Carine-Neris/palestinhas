@@ -20,7 +20,7 @@
                 <td>{{item.link}}</td>
                 <td>{{item.descricao}}</td>
                 <td>
-                    <form action="{% url 'palestrasdelete' item.id %}" method="post">
+                    <form action="{% url 'palestradelete' item.id %}" method="post">
                         {% csrf_token %}
                         <button type="submit">Deletar</button>
                     </form>
@@ -29,7 +29,7 @@
         {% endfor %}
     </table>
     <h1>Cadastrar Nova Palestra</h1>
-    <form method="post">
+    <form action="{% url 'palestracreate' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>

@@ -21,6 +21,7 @@
                 <td>{{item.link}}</td>
                 <td>{{item.descricao}}</td>
                 <td>{{item.status}}</td>
+                <td>{{item.data_criacao}}</td>
                 <td>
                     <form action="{% url 'palestradelete' item.id %}" method="post">
                         {% csrf_token %}

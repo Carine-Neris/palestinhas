@@ -6,7 +6,7 @@ from .forms import PalestraForm
 
 
 def palestras(request):
-    palestras = Palestras.objects.all()
+    palestras = Palestras.objects.all().order_by('-data_criacao')
     form = PalestraForm()
     context = {'context': palestras,
                 'form': form}

@@ -5,4 +5,4 @@ from .models import Palestras
 class PalestraForm(forms.ModelForm):
     class Meta:
         model = Palestras
-        fields = '__all__'
+        exclude = ['data_criacao']

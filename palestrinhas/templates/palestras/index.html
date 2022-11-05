@@ -13,11 +13,12 @@
             <th>Link</th>
             <th>Descrição</th>
             <th>Status</th>
+            <th>Data de criação</th>
             <th>Deletar</th>
         </tr>
         {% for item in context %} 
             <tr>
-                <td>{{item.nome}}</td>
+                <td><a href="{% url 'palestradetail' item.id %}">{{item.nome}}</a></td>
                 <td>{{item.link}}</td>
                 <td>{{item.descricao}}</td>
                 <td>{{item.status}}</td>

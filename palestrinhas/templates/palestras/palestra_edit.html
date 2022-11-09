@@ -11,5 +11,14 @@
         {{ form.as_p }}
         <button type="submit">Save</button>
     </form>
+    <div>
+    {% if request.user.is_authenticated %}  
+    <p>Deletar Palestra? </p>          
+        <form action="{% url 'palestradelete' palestra.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Deletar</button>
+        </form>
+    {% endif %}
+    </div>
 </body>
 </html>

@@ -5,7 +5,7 @@
     <title>Palestrinhas</title>
 </head>
 <body>
-    <h1>Olá, Palestrinhas</h1>
+    <h1>Olá,Palestrinhas</h1>
     <p>Número de palestras cadastradas : {{ context|length }}</p>
     <table border="1">
         <tr>
@@ -14,7 +14,6 @@
             <th>Descrição</th>
             <th>Status</th>
             <th>Data de criação</th>
-            <th>Deletar</th>
         </tr>
         {% for item in context %} 
             <tr>
@@ -23,20 +22,16 @@
                 <td>{{item.descricao}}</td>
                 <td>{{item.status}}</td>
                 <td>{{item.data_criacao}}</td>
-                <td>
-                    <form action="{% url 'palestradelete' item.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit">Deletar</button>
-                    </form>
-                </td>
             </tr>
         {% endfor %}
     </table>
-    <h1>Cadastrar Nova Palestra</h1>
-    <form action="{% url 'palestracreate' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+    {% if request.user.is_authenticated %}
+        <h1>Cadastrar Nova Palestra</h1>
+        <form action="{% url 'palestracreate' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+    {% endif %}    
 </body>
 </html>

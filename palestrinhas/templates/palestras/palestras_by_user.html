@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Palestrinhas</title>
+</head>
+<body>
+    <h1>Olá,Palestrinhas</h1>
+    <p>Número de palestras cadastradas : {{ context|length }}</p>
+    <table border="1">
+        <tr>
+            <th>Nome</th>
+            <th>Link</th>
+            <th>Descrição</th>
+            <th>Status</th>
+            <th>Data de criação</th>
+        </tr>
+        {% for item in context %} 
+            <tr>
+                <td><a href="{% url 'palestradetail' item.id %}">{{item.nome}}</a></td>
+                <td>{{item.link}}</td>
+                <td>{{item.descricao}}</td>
+                <td>{{item.status}}</td>
+                <td>{{item.data_criacao}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if request.user.is_authenticated %}
+        <h1>Cadastrar Nova Palestra</h1>
+        <form action="{% url 'palestracreate' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+    {% endif %}    
+</body>
+</html>

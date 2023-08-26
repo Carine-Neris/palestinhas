@@ -12,6 +12,13 @@ def palestras(request):
     return render(request, 'palestras/index.html', context)
 
 
+def palestras_by_user(request):
+    palestras = Palestras.objects.filter(user=request.user.id)
+    form = PalestraForm()
+    context = {'context': palestras, 'form': form}
+    return render(request,'palestras/palestras_by_user.html', context)
+
+
 def palestra_create(request):
     if request.method == 'POST':
         form = PalestraForm(request.POST)

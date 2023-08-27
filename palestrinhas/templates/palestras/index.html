@@ -7,6 +7,7 @@
 <body>
     <nav>
         <p><a href="{% url 'palestrasuser'%}">Minhas Palestras</a></p>
+        <p><a href="{% url 'logout' %}">Logout</a></p>
     </nav>
     <h1>Olá,Palestrinhas</h1>
     <p>Número de palestras cadastradas : {{ context|length }}</p>

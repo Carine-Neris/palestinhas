@@ -11,6 +11,12 @@
         {{ form.as_p }}
         <button type="submit">Save</button>
     </form>
+    <h4>Adicionar Comentário</h4>
+    <form action="{% url 'comentario' palestra.id %}" method="post">
+        {% csrf_token %}
+        {{ form_comment }}
+        <button type="submit">Enviar Comentário</button>
+    </form>
     <div>
     {% if request.user.is_authenticated %}  
     <p>Deletar Palestra? </p>          

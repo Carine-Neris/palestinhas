@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, redirect,get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from .models import Palestras
-from .forms import PalestraForm
+from .forms import PalestraForm, ComentariosForm
 
 
 def palestras(request):
@@ -38,9 +38,11 @@ def palestra_detail(request, pk):
     if request.method == 'GET':
         palestra = Palestras.objects.get(pk=pk)
         form = PalestraForm(instance=palestra)
-        context = {'form': form,
+        form_comment = ComentariosForm()
+        context = {'form': form, 'form_comment':form_comment,
                    'palestra': palestra}
         return render(request, 'palestras/palestra_edit.html', context)
+    
     if request.method == 'POST':
         palestra = Palestras.objects.get(pk=pk)
         form = PalestraForm(request.POST, instance=palestra)
@@ -51,3 +53,17 @@ def palestra_detail(request, pk):
             context = {'palestra': palestra,
                        'form': form}
             return render(request, 'palestras/palestra_edit.html', context)
+
+
+@login_required
+def adicionar_comentario(request, palestra_id):
+    palestra = get_object_or_404(Palestras, id=palestra_id)
+    if request.method == "POST":
+        form_comment = ComentariosForm(request.POST)
+        if form_comment.is_valid():
+            comentario = form_comment.save(commit=False)
+            comentario.user = request.user
+            comentario.palestra = palestra
+            comentario.save()
+        return redirect('palestradetail', pk=palestra.pk)
+    

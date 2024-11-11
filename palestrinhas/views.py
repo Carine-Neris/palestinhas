@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect,get_object_or_404
-from django.contrib.auth.decorators import login_required
 
-from .models import Palestras
+from .models import Palestras, Comentarios
 from .forms import PalestraForm, ComentariosForm
 
 
@@ -37,12 +36,13 @@ def palestra_delete(request, pk):
 def palestra_detail(request, pk):
     if request.method == 'GET':
         palestra = Palestras.objects.get(pk=pk)
-        form = PalestraForm(instance=palestra)
-        form_comment = ComentariosForm()
-        context = {'form': form, 'form_comment':form_comment,
-                   'palestra': palestra}
-        return render(request, 'palestras/palestra_edit.html', context)
-    
+        comentarios = Comentarios.objects.filter(palestra=pk)
+
+        context = {'palestra': palestra, 'comentarios':comentarios}
+        return render(request, 'palestras/palestra_detail.html', context)
+
+
+def palestra_edit(request,pk):
     if request.method == 'POST':
         palestra = Palestras.objects.get(pk=pk)
         form = PalestraForm(request.POST, instance=palestra)
@@ -55,7 +55,6 @@ def palestra_detail(request, pk):
             return render(request, 'palestras/palestra_edit.html', context)
 
 
-@login_required
 def adicionar_comentario(request, palestra_id):
     palestra = get_object_or_404(Palestras, id=palestra_id)
     if request.method == "POST":

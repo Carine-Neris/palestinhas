@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Palestrinhas</title>
+</head>
+<body>
+    <div class="main">
+        <h1>Palestra {{palestra.nome}}</h1>
+        <p>Link: {{ palestra.link  }}</p>
+        <p>Descrição: {{ palestra.descricao  }}</p>
+        <p>Data do cadastro: {{ palestra.data_criacao  }}</p>
+    </div>
+    <div class="commentarios">
+        <h1>Comentários:</h1>
+            {% for i in comentarios %}
+                <div class="comentario">
+                    <p><b>{{i.user}}: </b></p>
+                    <p>{{i.texto}}</p>
+                </div>
+            {% endfor %}
+    </div>
+</body>
+</html>

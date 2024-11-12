@@ -18,6 +18,7 @@
             <th>Descrição</th>
             <th>Status</th>
             <th>Data de criação</th>
+            <th>Editar Palestra</th>
         </tr>
         {% for item in context %} 
             <tr>
@@ -26,6 +27,7 @@
                 <td>{{item.descricao}}</td>
                 <td>{{item.status}}</td>
                 <td>{{item.data_criacao}}</td>
+                <td><a href="{% url 'palestraedit' item.id %}">EDITAR</a></td>
             </tr>
         {% endfor %}
     </table>

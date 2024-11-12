@@ -43,8 +43,8 @@ def palestra_detail(request, pk):
 
 
 def palestra_edit(request,pk):
+    palestra = Palestras.objects.get(pk=pk)
     if request.method == 'POST':
-        palestra = Palestras.objects.get(pk=pk)
         form = PalestraForm(request.POST, instance=palestra)
         if form.is_valid():
             form.save()
@@ -53,6 +53,12 @@ def palestra_edit(request,pk):
             context = {'palestra': palestra,
                        'form': form}
             return render(request, 'palestras/palestra_edit.html', context)
+    else:
+        form = PalestraForm(instance=palestra)
+        context = {'palestra': palestra,
+                   'form': form}
+        return render(request, 'palestras/palestra_edit.html', context)
+
 
 
 def adicionar_comentario(request, palestra_id):

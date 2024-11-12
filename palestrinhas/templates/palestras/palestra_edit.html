@@ -6,20 +6,14 @@
 </head>
 <body>
     <h1>Editar Palestra</h1>
-    <form action="{% url 'palestradetail' palestra.id %}" method="post">
+    <form action="{% url 'palestraedit' palestra.id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>
     </form>
-    <h4>Adicionar Comentário</h4>
-    <form action="{% url 'comentario' palestra.id %}" method="post">
-        {% csrf_token %}
-        {{ form_comment }}
-        <button type="submit">Enviar Comentário</button>
-    </form>
     <div>
-    {% if request.user.is_authenticated %}  
-    <p>Deletar Palestra? </p>          
+    {% if request.user.is_authenticated %}
+    <p>Deletar Palestra? </p>
         <form action="{% url 'palestradelete' palestra.id %}" method="post">
             {% csrf_token %}
             <button type="submit">Deletar</button>

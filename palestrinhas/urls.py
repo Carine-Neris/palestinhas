@@ -7,10 +7,11 @@ from palestrinhas import views
 
 urlpatterns = [
     path('', views.palestras, name='palestras'),
+    path('palestras/by-user/',views.palestras_by_user,name='palestrasuser'),
+
     path('palestra/create/', views.palestra_create, name='palestracreate'),
     path('palestra/<int:pk>/delete', views.palestra_delete, name='palestradelete'),
     path('palestra/detail/<int:pk>/', views.palestra_detail, name='palestradetail'),
-    path('palestras/by-user/',views.palestras_by_user,name='palestrasuser'),
     path('palestra/<int:palestra_id>/comentar/', views.adicionar_comentario, name='comentario'),
     path('palestra/edit/<int:pk>',views.palestra_edit,name='palestraedit'),
 

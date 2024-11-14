@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Palestrinhas</title>
+</head>
+<body>
+    <H1>Deletar Palestra? </H1>
+    <form action="{% url 'palestradelete' palestra.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Deletar</button>
+    </form>
+</body>
+</html>

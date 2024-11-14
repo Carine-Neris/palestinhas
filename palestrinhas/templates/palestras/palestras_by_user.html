@@ -9,7 +9,8 @@
         <p><a href="{% url 'palestras'%}">Home</a></p>
     </nav>
     <h1>Olá,Palestrinhas</h1>
-    <p>Número de palestras cadastradas : {{ context|length }}</p>
+    <p>Número de palestras que você cadastrou : {{ palestras|length }}</p>
+    {% if palestras %}
     <table border="1">
         <tr>
             <th>Nome</th>
@@ -17,24 +18,30 @@
             <th>Descrição</th>
             <th>Status</th>
             <th>Data de criação</th>
+            <th>Editar</th>
+            <th>Deletar Palestra?</th>
         </tr>
-        {% for item in context %} 
+        {% for palestra in palestras %}
             <tr>
-                <td><a href="{% url 'palestradetail' item.id %}">{{item.nome}}</a></td>
-                <td>{{item.link}}</td>
-                <td>{{item.descricao}}</td>
-                <td>{{item.status}}</td>
-                <td>{{item.data_criacao}}</td>
+                <td><a href="{% url 'palestradetail' palestra.id %}">{{palestra.nome}}</a></td>
+                <td>{{palestra.link}}</td>
+                <td>{{palestra.descricao}}</td>
+                <td>{{palestra.status}}</td>
+                <td>{{palestra.data_criacao}}</td>
+                <td><a href="">Editar</a></td>
+                <td><a href="{% url 'palestradelete' palestra.id %}">Deletar</a></td>
             </tr>
         {% endfor %}
     </table>
-    {% if request.user.is_authenticated %}
+    {% endif %}
+    <div>
         <h1>Cadastrar Nova Palestra</h1>
         <form action="{% url 'palestracreate' %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Save</button>
         </form>
-    {% endif %}    
+    </div>
+
 </body>
 </html>

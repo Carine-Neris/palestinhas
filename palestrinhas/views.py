@@ -1,3 +1,5 @@
+from lib2to3.fixes.fix_input import context
+
 from django.shortcuts import render, redirect,get_object_or_404
 
 from .models import Palestras, Comentarios
@@ -13,7 +15,7 @@ def palestras(request):
 def palestras_by_user(request):
     palestras = Palestras.objects.filter(user=request.user.id)
     form = PalestraForm()
-    context = {'palestas': palestras, 'form': form}
+    context = {'palestras': palestras, 'form': form}
     return render(request,'palestras/palestras_by_user.html', context)
 
 
@@ -22,14 +24,19 @@ def palestra_create(request):
         form = PalestraForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
+            form.user=request.user
             form.save()
     return redirect('palestras')
 
 
 def palestra_delete(request, pk):
     palestra = Palestras.objects.get(pk=pk)
-    palestra.delete()
-    return redirect('palestras')
+    if request.method == 'POST':
+        palestra.delete()
+        return redirect('palestras')
+    else:
+        context = {'palestra': palestra}
+        return render(request, 'palestras/delete_palestra.html',context)
 
 
 def palestra_detail(request, pk):

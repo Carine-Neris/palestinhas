@@ -6,15 +6,14 @@ from .forms import PalestraForm, ComentariosForm
 
 def palestras(request):
     palestras = Palestras.objects.all().order_by('-data_criacao')
-    form = PalestraForm()
-    context = {'context': palestras, 'form': form}
+    context = {'palestras': palestras}
     return render(request, 'palestras/index.html', context)
 
 
 def palestras_by_user(request):
     palestras = Palestras.objects.filter(user=request.user.id)
     form = PalestraForm()
-    context = {'context': palestras, 'form': form}
+    context = {'palestas': palestras, 'form': form}
     return render(request,'palestras/palestras_by_user.html', context)
 
 

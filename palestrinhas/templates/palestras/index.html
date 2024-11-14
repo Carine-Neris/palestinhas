@@ -5,12 +5,15 @@
     <title>Palestrinhas</title>
 </head>
 <body>
-    <nav>
-        <p><a href="{% url 'palestrasuser'%}">Minhas Palestras</a></p>
-        <p><a href="{% url 'logout' %}">Logout</a></p>
-    </nav>
-    <h1>Olá,Palestrinhas</h1>
-    <p>Número de palestras cadastradas : {{ context|length }}</p>
+    {% if request.user.is_authenticated %}
+        <nav>
+            <p><a href="{% url 'palestrasuser'%}">Minhas Palestras</a></p>
+            <p><a href="{% url 'logout' %}">Logout</a></p>
+        </nav>
+    {% endif %}
+
+    <h1>Olá, Seja bem vindo!!</h1>
+    <p>Número de palestras cadastradas até o momento : {{ palestras|length }}</p>
     <table border="1">
         <tr>
             <th>Nome</th>
@@ -18,26 +21,16 @@
             <th>Descrição</th>
             <th>Status</th>
             <th>Data de criação</th>
-            <th>Editar Palestra</th>
         </tr>
-        {% for item in context %} 
+        {% for palestra in palestras %}
             <tr>
-                <td><a href="{% url 'palestradetail' item.id %}">{{item.nome}}</a></td>
-                <td>{{item.link}}</td>
-                <td>{{item.descricao}}</td>
-                <td>{{item.status}}</td>
-                <td>{{item.data_criacao}}</td>
-                <td><a href="{% url 'palestraedit' item.id %}">EDITAR</a></td>
+                <td><a href="{% url 'palestradetail' palestra.id %}">{{palestra.nome}}</a></td>
+                <td>{{palestra.link}}</td>
+                <td>{{palestra.descricao}}</td>
+                <td>{{palestra.status}}</td>
+                <td>{{palestra.data_criacao}}</td>
             </tr>
         {% endfor %}
     </table>
-    {% if request.user.is_authenticated %}
-        <h1>Cadastrar Nova Palestra</h1>
-        <form action="{% url 'palestracreate' %}" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Save</button>
-        </form>
-    {% endif %}    
 </body>
 </html>
